@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "219848203772",
+    "project_id": "travelaid-95163",
+    "storage_bucket": "travelaid-95163.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219848203772:android:9827c4e79e246ab74fa679",
+        "android_client_info": {
+          "package_name": "com.example.travelaid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGukUR5bnjnNzbNex_ebFTp61liXjqN5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219848203772:android:9409a68d6ab46f904fa679",
+        "android_client_info": {
+          "package_name": "com.example.triptrak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGukUR5bnjnNzbNex_ebFTp61liXjqN5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
