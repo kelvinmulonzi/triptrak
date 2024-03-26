@@ -22,6 +22,9 @@ class FirebaseRepo {
     }
   }
 
+  // current user
+  User? get currentUser => firebase.currentUser;
+
   // signout user
   Future<void> signout() async {
     await firebase.signOut();

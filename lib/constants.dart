@@ -1,5 +1,6 @@
 // image and svg assets path
 const String explore = 'assets/images/explore.svg';
+const String pending = 'assets/images/pending.svg';
 
 // network image url
 const String dummyImage =

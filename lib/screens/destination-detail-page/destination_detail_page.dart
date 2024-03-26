@@ -3,7 +3,7 @@ import 'package:triptrak/screens/destination-detail-page/widgets/booking_logic.d
 import 'package:triptrak/screens/widgets/custom_filled_button.dart';
 
 import '../../models/attractions.dart';
-
+import '../booking/booking_page.dart';
 
 class DestinationDetailedPage extends StatelessWidget {
   final Destination destination;
@@ -65,16 +65,19 @@ class DestinationDetailedPage extends StatelessWidget {
             right: 0,
             child: Padding(
               padding: const EdgeInsets.all(10),
-              // child: CustomFilledBtn(
-              //   // onPressed: () {
-              //   //   Navigator.push(
-              //   //     context,
-              //   //     MaterialPageRoute(builder: (context) => const BookingLogic()),
-              //   //   );
-              //   // },
-              //   title: 'Book Now',
-              //   pad: 10,
-              // ),
+              child: CustomFilledBtn(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BookingScreen(
+                              destination: destination,
+                            )),
+                  );
+                },
+                title: 'Book Now',
+                pad: 10,
+              ),
             ),
           ),
           Positioned(

@@ -5,7 +5,7 @@ import 'package:triptrak/repo/firestore_repo.dart';
 
 import '../../constants.dart';
 import '../destination-list/destination_grid_page.dart';
-import '../saved-destinations/saved_destinations.dart';
+import '../mybookings/saved_destinations.dart';
 import 'widgets/attractiom_tile.dart';
 
 class HomePage extends StatelessWidget {

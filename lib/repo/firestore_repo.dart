@@ -51,11 +51,28 @@ class BkFirestoreRepo {
       FirebaseFirestore.instance.collection(bookingCollection);
 
   Future<String> addBooking(Booking booking) async {
+    final data = booking.toJson();
+    print('Booking: $data');
     try {
-      await firestoreBookings.add(booking.toJson());
+      await firestoreBookings.add(data);
       return 'Booking added successfully';
     } catch (e) {
       print('Error adding booking: $e');
+      throw e;
+    }
+  }
+
+  Future<List<Booking>> getBookings() async {
+    try {
+      final bookings = await firestoreBookings.get();
+
+      final bookingList = bookings.docs
+          .map((booking) => Booking.fromJson(booking.data()))
+          .toList();
+
+      return bookingList;
+    } catch (e) {
+      print('Error getting bookings: $e');
       throw e;
     }
   }
