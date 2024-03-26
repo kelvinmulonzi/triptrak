@@ -12,10 +12,14 @@ class FirebaseRepo {
   }
 
   Future<UserCredential?> loginuser(String email, String password) async {
-    final user = await firebase.signInWithEmailAndPassword(
-        email: email, password: password);
+    try {
+      final user = await firebase.signInWithEmailAndPassword(
+          email: email, password: password);
 
-    return user;
+      return user;
+    } catch (e) {
+      throw Future.error(e);
+    }
   }
 
   // signout user

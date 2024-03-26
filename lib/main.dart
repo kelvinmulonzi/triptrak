@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:triptrak/screens/homepage.dart';
 
 import 'firebase_options.dart';
+import 'screens/homepage/homepage.dart';
 import 'screens/landing_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
@@ -30,18 +32,18 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else if (snapshot.connectionState == ConnectionState.active) {
             final user = snapshot.data;
 
             if (user == null) {
-              return LandingPage(key: Key('landing_page'));
+              return const LandingPage(key: Key('landing_page'));
             } else {
-              return HomePage();
+              return const HomePage();
             }
           }
 
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         },
       ),
     );

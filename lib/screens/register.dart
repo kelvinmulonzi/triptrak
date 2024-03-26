@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../repo/firebase_repo.dart';
 import 'login.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -13,6 +12,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,32 +80,47 @@ class _RegisterPageState extends State<RegisterPage> {
                   // check of password or email is empty
                   if (emailcontroller.text == "" ||
                       passwordcontroller.text == "") {
+                    // handle empty fields
                   } else {
                     final String email = emailcontroller.text;
                     final String password = passwordcontroller.text;
 
-                    await FirebaseRepo()
-                        .createuser(email, password)
-                        .then((value) async {
-                      final user = value!.user!;
+                    try {
+                      if (password.length < 8) {
+                        throw Exception(
+                            'Password must be at least 8 characters long');
+                      }
 
-                      await FirebaseRepo().signout().then((value) {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Loginpage(),
-                          ),
-                          (route) => route.isFirst,
-                        );
+                      await FirebaseRepo()
+                          .createuser(email, password)
+                          .then((value) async {
+                        final user = value!.user!;
+
+                        await FirebaseRepo().signout().then((value) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Loginpage(),
+                            ),
+                            (route) => route.isFirst,
+                          );
+                        });
                       });
-                    });
+                    } catch (e) {
+                      print(e);
+                      // Show a dialog or snackbar to inform the user
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(e.toString()),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
                   }
-                  // Navigate to the next page
                 },
                 child: const Text('sign up'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightBlue[400]!,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white, backgroundColor: Colors.lightBlue[400]!,
                 ),
               ),
               Padding(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import '../repo/firebase_repo.dart';
 import '../repo/firebase_repo.dart';
 import 'widgets/user_textfields.dart'; // Import the next page widget
 import 'package:google_fonts/google_fonts.dart'; // Import the Google Fonts package
@@ -11,9 +12,9 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
-  final TextEditingController emailcontroller =
-      TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
+  final RegExp passwordRegex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +62,7 @@ class _LoginpageState extends State<Loginpage> {
                   children: [
                     Text(
                       'Forgot Password? ',
-                        style: GoogleFonts.montserrat(
+                      style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w200,
                         fontSize: 15,
@@ -88,19 +89,21 @@ class _LoginpageState extends State<Loginpage> {
                   if (emailcontroller.text == "" ||
                       passwordcontroller.text == "") {
                   } else {
-                    final String email = emailcontroller.text;
-                    final String password = passwordcontroller.text;
+                    final String email = emailcontroller.text.trim();
+                    final String password = passwordcontroller.text.trim();
 
                     await FirebaseRepo()
                         .loginuser(email, password)
-                        .then((value) {});
+                        .then((value) {
+                      Navigator.of(context).pop();
+                    });
                   }
                   // Navigate to the next page
                 },
                 child: const Text('Login'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.lightBlue[400]!,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white, backgroundColor: Colors.lightBlue[400]!,
+                  
                 ),
               ),
               Padding(
