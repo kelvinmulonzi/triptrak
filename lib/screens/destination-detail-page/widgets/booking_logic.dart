@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:triptrak/models/booking.dart';
 
-
-
 class BookingLogic extends StatelessWidget {
   final Booking booking;
 
   const BookingLogic({Key? key, required this.booking}) : super(key: key);
-  
+
   void_confirmBooking() {
     // Add logic to confirm booking
-    
   }
 
   @override
@@ -54,8 +51,6 @@ class BookingLogic extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Name: ${booking.userInformation.name}'),
-                  Text('Email: ${booking.userInformation.email}'),
                   // Add more user information fields here
                 ],
               ),
