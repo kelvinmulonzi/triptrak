@@ -66,6 +66,7 @@ Destination lamubeaches = Destination(
   admissionFee: 0.0,
   contacts: "+254 780 997742",
 );
+// ignore: non_constant_identifier_names
 Destination GiraffeCentre = Destination(
   urlImage: dummyImage5,
   id: const Uuid().v1(),
@@ -90,4 +91,4 @@ Destination Hellsgate = Destination(
 );
 
 
-List<Destination> dummyDests = [maasaimara, nairobipark];
+List<Destination> dummyDests = [maasaimara, nairobipark, lamubeaches, GiraffeCentre, Hellsgate];

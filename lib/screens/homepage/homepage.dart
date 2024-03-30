@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:triptrak/models/attractions.dart';
 import 'package:triptrak/repo/firestore_repo.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
 import '../destination-list/destination_grid_page.dart';
@@ -130,7 +131,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                       )
-                      //   CustomOutlinedBtn(
+                      //  CustomOutlinedBtn(
                       //     onPressed: () {},
                       //     title: 'Global Attractions',
                       //     pad: 10,
@@ -156,7 +157,56 @@ class HomePage extends StatelessWidget {
 }
 
 class TopLeading extends StatelessWidget {
-  const TopLeading({super.key});
+  const TopLeading({Key? key}) : super(key: key);
+  
+  get _attraction => null;
+   List<Destination> getDestinations() {
+
+     // Add your implementation here
+     return [
+      Destination(
+        id: Uuid().v1(),
+        name: 'Destination.name',
+        description: 'Destination.description',
+        location: 'Destination.location',
+        openingHours: 'Destination.openingHours',
+        admissionFee: 0.0,
+        contacts: 'Destination.contacts',
+        urlImage: 'Destination.urlImage',
+
+
+      )
+     ];
+   }
+
+  Widget buildPopupMenuButton(BuildContext context) {
+    return PopupMenuButton(
+      icon: Icon(
+        Icons.menu,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
+      itemBuilder: (BuildContext context) {
+        return [
+          PopupMenuItem(
+            child: ListTile(
+              title: Text('Add Destination'),
+              onTap: () async {
+                  List<Destination> destinations =
+                      getDestinations(); // getDestinations() should return your list of Destination objects
+
+                  for (var destination in destinations) {
+                    await DesFirestoreRepo().addAttraction(destination);
+                  }
+                }
+                // Handle adding destination here
+              
+            ),
+          ),
+          // Add more PopupMenuItems as needed
+        ];
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,35 +229,16 @@ class TopLeading extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Text(
-              'Username',
+              'mutuku',
               style: Theme.of(context).textTheme.labelMedium,
+              //
             ),
           ],
         ),
-        IconButton(
-          onPressed: () async {
-            // final provider = Provider.of<GoogleAuthProvide>(context,
-            //     listen: false);
-            // provider.signOut();
-
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) =>
-            //         const ProfilePage(),
-            //   ),
-            // );
-          },
-          // onPressed: () {
-          //   HiveUser userFromHive = GetMeFromHive.getHiveUser!;
-          //   print(userFromHive.name!);
-          // },
-          icon: Icon(
-            Icons.menu,
-            color: color.onSurface,
-          ),
-        ),
+        buildPopupMenuButton(context),
       ],
     );
   }
+  
+ 
 }
