@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:triptrak/models/attractions.dart';
 
 import '../../constants.dart';
 import '../../models/booking.dart';
 import '../../models/user.dart';
 import '../../repo/firestore_repo.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pdfWidgets;
+import 'package:flutter/material.dart';
+import 'dart:html' as html;
 
 class BookingScreen extends StatefulWidget {
   final Destination destination;
@@ -51,6 +59,10 @@ class BookingScreenState extends State<BookingScreen> {
       date: date,
       numberOfTickets: numberOfTickets,
       bookingStatus: BookingStatus.pending,
+      payment: "pending",
+      price: widget.destination.price.toString(
+        
+      ),
     );
 
     // Send booking data to the server or perform any necessary action
@@ -79,8 +91,55 @@ class BookingScreenState extends State<BookingScreen> {
         },
       );
     });
+    final pdf = pdfWidgets.Document();
+    pdf.addPage(
+      pdfWidgets.Page(
+        build: (pdfWidgets.Context context) => pdfWidgets.Column(
+          children: [
+            pdfWidgets.Header(
+              level: 0,
+              child: pdfWidgets.Text('Ticket',
+                  style: pdfWidgets.TextStyle(
+                      fontSize: 40, color: PdfColors.blue)),
+            ),
+            pdfWidgets.Paragraph(
+                text: 'Destination: ${widget.destination.name}'),
+            pdfWidgets.Paragraph(
+                text: 'Date: ${date.toString().substring(0, 10)}'),
+            pdfWidgets.Paragraph(text: 'Number of tickets: $numberOfTickets'),
+            pdfWidgets.Padding(padding: const pdfWidgets.EdgeInsets.all(10)),
+            pdfWidgets.Table.fromTextArray(
+                context: context,
+                data: <List<String>>[
+                  <String>['Ticket No.', 'Seat No.', 'Price'],
+                  ...List<List<String>>.generate(
+                      numberOfTickets,
+                      (index) => <String>[
+                            '${index + 1}',
+                            'Seat ${index + 1}',
+                            '\$20'
+                          ]),
+                ]),
+          ],
+        ),
+      ),
+    );
 
-    // Show success message
+    // Save the ticket to a Blob and create a link for it
+    if (kIsWeb) {
+      final bytes = await pdf.save();
+      final blob = html.Blob([bytes], 'application/pdf');
+      final url = html.Url.createObjectUrlFromBlob(blob);
+      final anchor = html.AnchorElement(href: url)
+        ..setAttribute('download', 'ticket.pdf')
+        ..click();
+    } else {
+      // Save the ticket to a file in the temporary directory
+      final output = await getTemporaryDirectory();
+      final file = File('${output.path}/ticket.pdf');
+      await file.writeAsBytes(await pdf.save());
+      print('PDF saved to ${file.path}');
+    }
   }
 
   @override
@@ -161,9 +220,6 @@ class BookingScreenState extends State<BookingScreen> {
             ElevatedButton(
               onPressed: submitBooking,
               child: Text('Book Now'),
-   
-   
-   
             ),
           ],
         ),

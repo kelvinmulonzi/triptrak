@@ -10,8 +10,13 @@ class Booking {
   DateTime date;
   int numberOfTickets;
   BookingStatus bookingStatus;
- 
-  factory Booking.fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
+  String payment;
+  String price;
+  
+  
+
+  factory Booking.fromJson(Map<String, dynamic> json) =>
+      _$BookingFromJson(json);
   Map<String, dynamic> toJson() => _$BookingToJson(this);
 
   Booking({
@@ -19,12 +24,18 @@ class Booking {
     required this.date,
     required this.numberOfTickets,
     required this.bookingStatus,
+    required this.payment,
+    required this.price,
+ 
+  
+    
   });
 }
+
+
 
 enum BookingStatus {
   confirmed,
   pending,
   cancelled,
 }
-

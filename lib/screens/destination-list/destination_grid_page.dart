@@ -29,7 +29,7 @@ class DestinationGridPage extends StatelessWidget {
 
                 return SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     childAspectRatio: 0.6,

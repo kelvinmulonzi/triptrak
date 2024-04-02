@@ -29,6 +29,8 @@ class Destination {
 
   factory Destination.fromJson(Map<String, dynamic> json) =>
       _$DestinationFromJson(json);
+
+  get price => null;
   Map<String, dynamic> toJson() => _$DestinationToJson(this);
 }
 

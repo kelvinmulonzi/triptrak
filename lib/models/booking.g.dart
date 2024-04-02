@@ -10,6 +10,10 @@ Booking _$BookingFromJson(Map<String, dynamic> json) => Booking(
       attraction: json['attraction'] as String,
       date: DateTime.parse(json['date'] as String),
       numberOfTickets: json['numberOfTickets'] as int,
+      payment: json['payment'] as String,
+      price: json['price'] as String,
+    
+      
       bookingStatus: $enumDecode(_$BookingStatusEnumMap, json['bookingStatus']),
     );
 

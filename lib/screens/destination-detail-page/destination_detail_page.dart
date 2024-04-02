@@ -7,7 +7,8 @@ import '../booking/booking_page.dart';
 
 class DestinationDetailedPage extends StatelessWidget {
   final Destination destination;
-  const DestinationDetailedPage({super.key, required this.destination});
+  const DestinationDetailedPage({Key? key, required this.destination})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class DestinationDetailedPage extends StatelessWidget {
                   children: [
                     Text(
                       destination.name,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     const SizedBox(height: 5),
                     Row(
@@ -45,42 +46,39 @@ class DestinationDetailedPage extends StatelessWidget {
                         ),
                         Text(
                           destination.location,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
                     Text(
                       destination.description,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: CustomFilledBtn(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BookingScreen(
+                          destination: destination,
+                        ),
+                      ),
+                    );
+                  },
+                  title: 'Book Now',
+                  pad: 10,
                 ),
               ),
             ],
           ),
           Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomFilledBtn(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BookingScreen(
-                              destination: destination,
-                            )),
-                  );
-                },
-                title: 'Book Now',
-                pad: 10,
-              ),
-            ),
-          ),
-          Positioned(
+            top: 0,
             left: 0,
             child: Padding(
               padding: const EdgeInsets.all(10),
