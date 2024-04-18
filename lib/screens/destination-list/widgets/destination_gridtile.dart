@@ -33,8 +33,8 @@ class GridItem extends StatelessWidget {
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(3),
-                  image: const DecorationImage(
-                    image: NetworkImage(dummyImage2),
+                  image: DecorationImage(
+                    image: NetworkImage(destination.urlImage),
                     fit: BoxFit.cover,
                   ),
                 ),
