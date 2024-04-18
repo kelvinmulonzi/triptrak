@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:triptrak/models/attractions.dart';
 import 'package:triptrak/repo/firestore_repo.dart';
-import 'package:uuid/uuid.dart';
+import 'package:triptrak/screens/admin/adminpanel.dart';
 
 import '../../constants.dart';
 import '../destination-list/destination_grid_page.dart';
@@ -123,35 +123,36 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          height: 100,
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.1),
+                        child: InkWell(
+                          customBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(
-                            'Admin Panel',
-                            style: Theme.of(context).textTheme.titleSmall,
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const AdminPage(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 100,
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              'Admin Panel',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
                           ),
                         ),
                       )
-                      //  CustomOutlinedBtn(
-                      //     onPressed: () {},
-                      //     title: 'Global Attractions',
-                      //     pad: 10,
-                      //   ),
-                      //   CustomFilledBtn(
-                      //     onPressed: () {},
-                      //     title: 'My Bookings',
-                      //     pad: 10,
-                      //   ),
-                      // ],
                     ]),
                   ),
                 ],
@@ -219,4 +220,3 @@ class TopLeading extends StatelessWidget {
     );
   }
 }
-
