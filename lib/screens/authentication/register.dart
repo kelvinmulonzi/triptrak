@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import '../repo/firebase_repo.dart';
+import '../../repo/firebase_repo.dart';
 import 'login.dart';
 
 class RegisterPage extends StatefulWidget {

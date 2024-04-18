@@ -29,4 +29,6 @@ class FirebaseRepo {
   Future<void> signout() async {
     await firebase.signOut();
   }
+  //forgot password 
+  
 }

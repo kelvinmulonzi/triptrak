@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import '../repo/firebase_repo.dart';
-import '../repo/firebase_repo.dart';
-import 'widgets/user_textfields.dart'; // Import the next page widget
+import '../../repo/firebase_repo.dart';
+import '../widgets/user_textfields.dart'; // Import the next page widget
 import 'package:google_fonts/google_fonts.dart'; // Import the Google Fonts package
 
 class Loginpage extends StatefulWidget {

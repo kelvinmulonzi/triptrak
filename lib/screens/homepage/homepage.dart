@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 70,
         title: const TopLeading(),
         centerTitle: true,
@@ -186,53 +187,6 @@ class HomePage extends StatelessWidget {
 class TopLeading extends StatelessWidget {
   const TopLeading({Key? key}) : super(key: key);
 
-  get _attraction => null;
-  List<Destination> getDestinations() {
-    // Add your implementation here
-    return [
-      Destination(
-        id: const Uuid().v1(),
-        name: 'Destination.name',
-        description: 'Destination.description',
-        location: 'Destination.location',
-        openingHours: 'Destination.openingHours',
-        admissionFee: 0.0,
-        contacts: 'Destination.contacts',
-        urlImage: 'Destination.urlImage',
-        fee: 0,
-      )
-    ];
-  }
-
-  Widget buildPopupMenuButton(BuildContext context) {
-    return PopupMenuButton(
-      icon: Icon(
-        Icons.menu,
-        color: Theme.of(context).colorScheme.onSurface,
-      ),
-      itemBuilder: (BuildContext context) {
-        return [
-          PopupMenuItem(
-            child: ListTile(
-                title: const Text('Add Destination'),
-                onTap: () async {
-                  List<Destination> destinations =
-                      getDestinations(); // getDestinations() should return your list of Destination objects
-
-                  for (var destination in dummyDests) {
-                    await DesFirestoreRepo().addAttraction(destination);
-                  }
-                }
-                // Handle adding destination here
-
-                ),
-          ),
-          // Add more PopupMenuItems as needed
-        ];
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
@@ -260,8 +214,9 @@ class TopLeading extends StatelessWidget {
             ),
           ],
         ),
-        buildPopupMenuButton(context),
+        const Spacer()
       ],
     );
   }
 }
+
