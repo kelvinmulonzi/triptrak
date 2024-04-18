@@ -1,18 +1,14 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:triptrak/models/attractions.dart';
-
-import '../../constants.dart';
-import '../../models/booking.dart';
-import '../../models/user.dart';
-import '../../repo/firestore_repo.dart';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pdfWidgets;
-import 'package:flutter/material.dart';
-import 'dart:html' as html;
+
+import '../../models/attractions.dart';
+import '../../models/booking.dart';
+import '../../repo/firestore_repo.dart';
 
 class BookingScreen extends StatefulWidget {
   final Destination destination;
@@ -23,6 +19,9 @@ class BookingScreen extends StatefulWidget {
 }
 
 class BookingScreenState extends State<BookingScreen> {
+  // controller
+  final controller = TextEditingController();
+
   // Variables to hold user input
   String attraction = '';
   DateTime date = DateTime.now();
@@ -37,14 +36,14 @@ class BookingScreenState extends State<BookingScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Please fill in all the fields.'),
+            title: const Text('Error'),
+            content: const Text('Please fill in all the fields.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -59,38 +58,36 @@ class BookingScreenState extends State<BookingScreen> {
       date: date,
       numberOfTickets: numberOfTickets,
       bookingStatus: BookingStatus.pending,
-      payment: "pending",
-      price: widget.destination.price.toString(
-        
-      ),
+      fee: widget.destination.fee,
     );
 
     // Send booking data to the server or perform any necessary action
     // You can add your implementation here
     final repo = BkFirestoreRepo();
     final result = await repo.addBooking(booking).then((value) async {
-      print(value);
-
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Success'),
-            content: Text('Booking successful!'),
+            title: const Text('Success'),
+            content: const Text('Booking successful!'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  controller.clear();
                   // Navigate back to home screen or any other screen
                   // You can add your implementation here
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
         },
       );
     });
+
     final pdf = pdfWidgets.Document();
     pdf.addPage(
       pdfWidgets.Page(
@@ -99,7 +96,7 @@ class BookingScreenState extends State<BookingScreen> {
             pdfWidgets.Header(
               level: 0,
               child: pdfWidgets.Text('Ticket',
-                  style: pdfWidgets.TextStyle(
+                  style: const pdfWidgets.TextStyle(
                       fontSize: 40, color: PdfColors.blue)),
             ),
             pdfWidgets.Paragraph(
@@ -127,12 +124,12 @@ class BookingScreenState extends State<BookingScreen> {
 
     // Save the ticket to a Blob and create a link for it
     if (kIsWeb) {
-      final bytes = await pdf.save();
+      /*  final bytes = await pdf.save();
       final blob = html.Blob([bytes], 'application/pdf');
       final url = html.Url.createObjectUrlFromBlob(blob);
       final anchor = html.AnchorElement(href: url)
         ..setAttribute('download', 'ticket.pdf')
-        ..click();
+        ..click(); */
     } else {
       // Save the ticket to a file in the temporary directory
       final output = await getTemporaryDirectory();
@@ -146,10 +143,10 @@ class BookingScreenState extends State<BookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking Screen'),
+        title: const Text('Booking Screen'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -183,7 +180,7 @@ class BookingScreenState extends State<BookingScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // Date picker
             // You can use any date picker widget or customize it according to your requirement
             // Example: https://pub.dev/packages/flutter_datetime_picker
@@ -208,18 +205,19 @@ class BookingScreenState extends State<BookingScreen> {
                   ? 'Select Date'
                   : 'Selected Date: ${date.toString().substring(0, 10)}'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(labelText: 'Number of Tickets'),
+              controller: controller,
+              decoration: const InputDecoration(labelText: 'Number of Tickets'),
               keyboardType: TextInputType.number,
               onChanged: (value) {
                 numberOfTickets = int.tryParse(value) ?? 0;
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: submitBooking,
-              child: Text('Book Now'),
+              child: const Text('Book Now'),
             ),
           ],
         ),

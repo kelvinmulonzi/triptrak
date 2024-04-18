@@ -184,10 +184,10 @@ class GlobalAttractions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Global Attractions'),
+        title: const Text('Global Attractions'),
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
@@ -221,7 +221,7 @@ class GlobalAttractions extends StatelessWidget {
                     child: Text(
                       attractions[index].name,
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -237,7 +237,7 @@ class GlobalAttractions extends StatelessWidget {
 class AttractionDetails extends StatelessWidget {
   final Attraction attraction;
 
-  AttractionDetails({required this.attraction});
+  const AttractionDetails({super.key, required this.attraction});
 
   @override
   Widget build(BuildContext context) {
@@ -271,14 +271,14 @@ String bookingDate = DateTime.now().toString();
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Booking Confirmation'),
+          title: const Text('Booking Confirmation'),
           content: Text('Your booking for ${attraction.destinations[index].name} has been confirmed.\n\nBooking Date: $bookingDate\nAmount Paid: $amountPaid\nMode of Payment: $modeOfPayment'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -286,20 +286,19 @@ String bookingDate = DateTime.now().toString();
     );
   }).catchError((error) {
     // Handle errors if booking fails
-    print("Failed to book: $error");
     // Show an error dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Booking Failed'),
-          content: Text('There was an error while processing your booking. Please try again later.'),
+          title: const Text('Booking Failed'),
+          content: const Text('There was an error while processing your booking. Please try again later.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );

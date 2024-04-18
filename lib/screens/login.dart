@@ -100,14 +100,14 @@ class _LoginpageState extends State<Loginpage> {
                   }
                   // Navigate to the next page
                 },
-                child: const Text('Login'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.lightBlue[400]!,
                   
                 ),
+                child: const Text('Login'),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -117,7 +117,7 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'or continue with',
                         style: TextStyle(color: Colors.black),

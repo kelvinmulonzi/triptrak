@@ -12,20 +12,16 @@ class DesFirestoreRepo {
       await firestoreAttractions.doc(attraction.id).set(attraction.toJson());
       return attraction.id;
     } catch (e) {
-      print('Error adding attraction: $e');
-      throw e;
+      rethrow;
     }
   }
-  
-
 
   // Update an attraction
   Future<void> updateAttraction(Destination attraction) async {
     try {
       await firestoreAttractions.doc(attraction.id).update(attraction.toJson());
     } catch (e) {
-      print('Error updating attraction: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -38,12 +34,10 @@ class DesFirestoreRepo {
           .map((attraction) => Destination.fromJson(attraction.data()))
           .toList();
 
-      print('============================>>> ${desList.length}');
 
       return desList;
     } catch (e) {
-      print('Error getting attractions: $e');
-      throw e;
+      rethrow;
     }
   }
 }
@@ -54,13 +48,11 @@ class BkFirestoreRepo {
 
   Future<String> addBooking(Booking booking) async {
     final data = booking.toJson();
-    print('Booking: $data');
     try {
       await firestoreBookings.add(data);
       return 'Booking added successfully';
     } catch (e) {
-      print('Error adding booking: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -74,8 +66,7 @@ class BkFirestoreRepo {
 
       return bookingList;
     } catch (e) {
-      print('Error getting bookings: $e');
-      throw e;
+      rethrow;
     }
   }
 }

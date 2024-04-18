@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
-import 'package:triptrak/models/user.dart';
 
 part 'user.g.dart';
 
@@ -34,7 +33,7 @@ class User {
 class UserInfoWidget extends StatelessWidget {
   final User user;
 
-  const UserInfoWidget({required this.user});
+  const UserInfoWidget({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +50,13 @@ class UserInfoWidget extends StatelessWidget {
 class BookingHistory extends StatelessWidget {
   final User user;
 
-  const BookingHistory({required this.user});
+  const BookingHistory({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Booking History:'),
+        const Text('Booking History:'),
         for (var booking in user.bookingHistory)
           Text(booking),
       ],
@@ -68,13 +67,13 @@ class BookingHistory extends StatelessWidget {
 class FavoriteAttraction extends StatelessWidget {
   final User user;
 
-  const FavoriteAttraction({required this.user});
+  const FavoriteAttraction({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Favorite Attractions:'),
+        const Text('Favorite Attractions:'),
         for (var attraction in user.favoriteAttractions)
           Text(attraction),
       ],
@@ -85,13 +84,13 @@ class FavoriteAttraction extends StatelessWidget {
 class PaymentInformation extends StatelessWidget {
   final User user;
 
-  const PaymentInformation({required this.user});
+  const PaymentInformation({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Payment Information:'),
+        const Text('Payment Information:'),
         for (var entry in user.paymentInformation.entries)
           Text('${entry.key}: ${entry.value}'),
       ],

@@ -25,42 +25,54 @@ class DestinationGridPage extends StatelessWidget {
             future: DesFirestoreRepo().getAllAttractions(),
             builder: (context, AsyncSnapshot<List<Destination>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                final dummyDests = snapshot.data!;
+                if (snapshot.hasData) {
+                  final dummyDests = snapshot.data!;
 
-                return SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 0.6,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(10), // Add border radius
-                          color: Colors.white, // Add background color
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: const Offset(0, 2),
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 7),
+                    sliver: SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.6,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  10), // Add border radius
+                              color: Colors.white, // Add background color
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 3,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: GridItem(
-                          destination: dummyDests[index],
-                        ),
-                      );
-                    },
-                    childCount: dummyDests.length,
-                  ),
-                );
+                            child: GridItem(
+                              destination: dummyDests[index],
+                            ),
+                          );
+                        },
+                        childCount: dummyDests.length,
+                      ),
+                    ),
+                  );
+                } else {
+                  return const SliverFillRemaining(
+                    child: Center(
+                      child: Text('No destinations available'),
+                    ),
+                  );
+                }
               } else {
-                return SliverFillRemaining(
-                  child: const Center(
+                return const SliverFillRemaining(
+                  child: Center(
                     child: CircularProgressIndicator(),
                   ),
                 );

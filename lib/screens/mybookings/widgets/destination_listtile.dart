@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +14,7 @@ class BookingListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    const double height = 2;
+    const double height = 5;
 
     return Container(
       height: 160,
@@ -32,6 +31,14 @@ class BookingListTile extends StatelessWidget {
               child: Center(
                 child: SvgPicture.asset(pending),
               )),
+          /* Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(destination.urlImage),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ), */
           const SizedBox(width: 10),
           Expanded(
             child: Stack(
@@ -47,9 +54,16 @@ class BookingListTile extends StatelessWidget {
                         style: bodyDefaultBold(textTheme),
                       ),
                       const SizedBox(height: height),
-                      Text(destination.numberOfTickets.toString(),
-                          style: bodyDefault(textTheme)),
+                      Text(
+                        'Kshs. ${NumberFormat('#,##0.00').format(destination.fee)}',
+                        style: bodyDefault(textTheme).copyWith(
+                          color: color.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: height),
+                      Text('Tickets: ${destination.numberOfTickets.toString()}',
+                          style: bodyDefault(textTheme)),
                     ],
                   ),
                 ),

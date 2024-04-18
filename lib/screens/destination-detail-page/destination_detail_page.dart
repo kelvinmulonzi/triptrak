@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:triptrak/screens/destination-detail-page/widgets/booking_logic.dart';
-import 'package:triptrak/screens/widgets/custom_filled_button.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/attractions.dart';
+import '../../theme/text_scheme.dart';
 import '../booking/booking_page.dart';
+import '../widgets/custom_filled_button.dart';
 
 class DestinationDetailedPage extends StatelessWidget {
   final Destination destination;
@@ -12,6 +13,9 @@ class DestinationDetailedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final color = Theme.of(context).colorScheme;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -32,9 +36,23 @@ class DestinationDetailedPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      destination.name,
-                      style: Theme.of(context).textTheme.headline6,
+                    Row(
+                      children: [
+                        Text(
+                          destination.name,
+                          style: bodyLarge(textTheme).copyWith(
+                            fontSize: 20,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          'Kshs. ${NumberFormat('#,##0.00').format(destination.fee)}',
+                          style: bodyDefault(textTheme).copyWith(
+                            color: color.primary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 5),
                     Row(
@@ -46,14 +64,16 @@ class DestinationDetailedPage extends StatelessWidget {
                         ),
                         Text(
                           destination.location,
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: bodyDefaultBold(textTheme).copyWith(
+                            color: color.onSurface,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
                     Text(
                       destination.description,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),
@@ -86,7 +106,7 @@ class DestinationDetailedPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios),
               ),
             ),
           ),

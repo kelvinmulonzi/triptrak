@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:triptrak/models/attractions.dart';
 import 'package:triptrak/repo/firestore_repo.dart';
 
 import '../../models/booking.dart';
@@ -27,7 +24,7 @@ class SavedDestinations extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             sliver: FutureBuilder(
                 future: BkFirestoreRepo().getBookings(),
                 builder: (context, snap) {

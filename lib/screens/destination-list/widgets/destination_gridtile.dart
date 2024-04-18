@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:triptrak/constants.dart';
 import 'package:triptrak/screens/destination-detail-page/destination_detail_page.dart';
 
 import '../../../models/attractions.dart';

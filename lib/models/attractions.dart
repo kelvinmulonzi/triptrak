@@ -13,8 +13,8 @@ class Destination {
   String openingHours;
   double admissionFee;
   String contacts;
-  // bool isSaved;
   String urlImage;
+  int fee;
 
   Destination({
     required this.id,
@@ -25,6 +25,7 @@ class Destination {
     required this.admissionFee,
     required this.contacts,
     required this.urlImage,
+    required this.fee,
   });
 
   factory Destination.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +45,7 @@ Destination maasaimara = Destination(
   openingHours: "9:00 AM - 12:00 AM",
   admissionFee: 20.0,
   contacts: "+254 780 997742",
+  fee: 2000,
 );
 Destination nairobipark = Destination(
   urlImage: dummyImage3,
@@ -55,7 +57,7 @@ Destination nairobipark = Destination(
   openingHours: "9:00 AM - 12:00 AM",
   admissionFee: 20.0,
   contacts: "+254 780 997742",
-
+  fee: 3000,
 );
 Destination lamubeaches = Destination(
   urlImage: dummyImage4,
@@ -67,6 +69,7 @@ Destination lamubeaches = Destination(
   openingHours: "24/7",
   admissionFee: 0.0,
   contacts: "+254 780 997742",
+  fee: 4000,
 );
 // ignore: non_constant_identifier_names
 Destination GiraffeCentre = Destination(
@@ -79,8 +82,9 @@ Destination GiraffeCentre = Destination(
   openingHours: "9:00 AM - 5:00 PM",
   admissionFee: 20.0,
   contacts: "+254 780 997742",
+  fee: 5000,
 );
-Destination Hellsgate = Destination(
+Destination hellsgate = Destination(
   urlImage: dummyImage6,
   id: const Uuid().v1(),
   name: "Hell's Gate National Park",
@@ -90,7 +94,13 @@ Destination Hellsgate = Destination(
   openingHours: "9:00 AM - 6:00 PM",
   admissionFee: 20.0,
   contacts: "+254 780 997742",
+  fee: 6000,
 );
 
-
-List<Destination> dummyDests = [maasaimara, nairobipark, lamubeaches, GiraffeCentre, Hellsgate];
+List<Destination> dummyDests = [
+  maasaimara,
+  nairobipark,
+  lamubeaches,
+  GiraffeCentre,
+  hellsgate
+];

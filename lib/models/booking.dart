@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'user.dart';
 
 part 'booking.g.dart';
 
@@ -10,8 +9,7 @@ class Booking {
   DateTime date;
   int numberOfTickets;
   BookingStatus bookingStatus;
-  String payment;
-  String price;
+  int fee;
   
   
 
@@ -24,8 +22,7 @@ class Booking {
     required this.date,
     required this.numberOfTickets,
     required this.bookingStatus,
-    required this.payment,
-    required this.price,
+    required this.fee,
  
   
     

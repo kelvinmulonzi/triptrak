@@ -15,3 +15,17 @@ const String dummyImage5 =
     'https://unsplash.com/photos/brown-and-beige-giraffe-NEJcmvLFcws';
 const String dummyImage6 =
     'https://en.m.wikipedia.org/wiki/File:Hell%27s_Gate_Airtram_and_Suspension_Bridge_-_panoramio.jpg';
+
+String extractNameFromEmail(String email) {
+  // Split the email address at the '@' symbol
+  List<String> parts = email.split('@');
+
+  // Check if there are exactly two parts (name and domain)
+  if (parts.length == 2) {
+    // Return the first part (name)
+    return parts[0];
+  } else {
+    // Return empty string if the email format is invalid
+    return email;
+  }
+}

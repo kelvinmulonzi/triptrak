@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../constants.dart';
 import '../destination-list/destination_grid_page.dart';
 import '../mybookings/saved_destinations.dart';
+import 'profile_end_drawer.dart';
 import 'widgets/attractiom_tile.dart';
 
 class HomePage extends StatelessWidget {
@@ -19,11 +20,19 @@ class HomePage extends StatelessWidget {
         toolbarHeight: 70,
         title: const TopLeading(),
         centerTitle: true,
+        actions: [
+          Builder(builder: (context) {
+            return IconButton(
+                onPressed: () => _openDrawer(context),
+                icon: const Icon(Icons.align_horizontal_left_rounded));
+          })
+        ],
       ),
       body: FutureBuilder(
-          future: DesFirestoreRepo().getAllAttractions(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+        future: DesFirestoreRepo().getAllAttractions(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
               final desData = snapshot.data as List<Destination>;
 
               print(desData.length);
@@ -147,25 +156,42 @@ class HomePage extends StatelessWidget {
                 ],
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child: Text(
+                  'No destinations available list is empty',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               );
             }
-          }),
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+      drawer: const NavigationnDrawer(),
     );
+  }
+
+  void _openDrawer(BuildContext context) {
+    Scaffold.of(context).openDrawer();
   }
 }
 
 class TopLeading extends StatelessWidget {
   const TopLeading({Key? key}) : super(key: key);
-  
-  get _attraction => null;
-   List<Destination> getDestinations() {
 
-     // Add your implementation here
-     return [
+  get _attraction => null;
+  List<Destination> getDestinations() {
+    // Add your implementation here
+    return [
       Destination(
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         name: 'Destination.name',
         description: 'Destination.description',
         location: 'Destination.location',
@@ -173,11 +199,10 @@ class TopLeading extends StatelessWidget {
         admissionFee: 0.0,
         contacts: 'Destination.contacts',
         urlImage: 'Destination.urlImage',
-
-
+        fee: 0,
       )
-     ];
-   }
+    ];
+  }
 
   Widget buildPopupMenuButton(BuildContext context) {
     return PopupMenuButton(
@@ -189,18 +214,18 @@ class TopLeading extends StatelessWidget {
         return [
           PopupMenuItem(
             child: ListTile(
-              title: Text('Add Destination'),
-              onTap: () async {
+                title: const Text('Add Destination'),
+                onTap: () async {
                   List<Destination> destinations =
                       getDestinations(); // getDestinations() should return your list of Destination objects
 
-                  for (var destination in destinations) {
+                  for (var destination in dummyDests) {
                     await DesFirestoreRepo().addAttraction(destination);
                   }
                 }
                 // Handle adding destination here
-              
-            ),
+
+                ),
           ),
           // Add more PopupMenuItems as needed
         ];
@@ -239,6 +264,4 @@ class TopLeading extends StatelessWidget {
       ],
     );
   }
-  
- 
 }

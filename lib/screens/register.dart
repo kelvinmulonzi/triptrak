@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import '../repo/firebase_repo.dart';
 import 'login.dart';
@@ -44,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 16.0),
               TextField(
                 controller: emailcontroller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'email',
                   border: OutlineInputBorder(),
                   fillColor: Colors.white,
@@ -53,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 16.0),
               TextField(
                 controller: passwordcontroller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                   fillColor: Colors.white,
@@ -61,9 +63,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 obscureText: true, // to hide password
               ),
               const SizedBox(height: 10),
-              Padding(
+              const Padding(
                 padding:
-                    const EdgeInsetsDirectional.symmetric(horizontal: 25.0),
+                    EdgeInsetsDirectional.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -94,7 +96,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       await FirebaseRepo()
                           .createuser(email, password)
                           .then((value) async {
-                        final user = value!.user!;
 
                         await FirebaseRepo().signout().then((value) {
                           Navigator.pushAndRemoveUntil(
@@ -107,7 +108,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         });
                       });
                     } catch (e) {
-                      print(e);
                       // Show a dialog or snackbar to inform the user
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -118,13 +118,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                   }
                 },
-                child: const Text('sign up'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.lightBlue[400]!,
                 ),
+                child: const Text('sign up'),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'or continue with',
                         style: TextStyle(color: Colors.black),

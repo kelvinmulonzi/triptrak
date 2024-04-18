@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Destination {
@@ -57,7 +56,7 @@ class DummieInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Local Attractions'),
+        title: const Text('Local Attractions'),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -68,9 +67,9 @@ class DummieInfo extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
@@ -109,7 +108,7 @@ class DummieInfo extends StatelessWidget {
                       Center(
                         child: Text(
                           attractions[index].name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -140,7 +139,7 @@ class DummieInfo extends StatelessWidget {
 class AttractionDetails extends StatelessWidget {
   final Attraction attraction;
 
-  AttractionDetails({required this.attraction});
+  const AttractionDetails({super.key, required this.attraction});
 
   @override
   Widget build(BuildContext context) {
@@ -152,10 +151,10 @@ class AttractionDetails extends StatelessWidget {
         children: [
           Text(
             'Features: ${attraction.features}',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
-          Text(
+          const SizedBox(height: 20),
+          const Text(
             'Destinations:',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
@@ -173,7 +172,7 @@ class AttractionDetails extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Destination Selected'),
+                        title: const Text('Destination Selected'),
                         content: Text(
                             'You have selected ${attraction.destinations[index].name} at a cost of \$${attraction.destinations[index].charges.toStringAsFixed(2)}'),
                         actions: [
@@ -181,7 +180,7 @@ class AttractionDetails extends StatelessWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Cancel'),
+                            child: const Text('Cancel'),
                           ),
                           TextButton(
                             onPressed: () {
@@ -191,8 +190,8 @@ class AttractionDetails extends StatelessWidget {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text('Booking Details'),
-                                    content: Column(
+                                    title: const Text('Booking Details'),
+                                    content: const Column(
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -220,7 +219,7 @@ class AttractionDetails extends StatelessWidget {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Text('Cancel'),
+                                        child: const Text('Cancel'),
                                       ),
                                       TextButton(
                                         onPressed: () {
@@ -230,30 +229,30 @@ class AttractionDetails extends StatelessWidget {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text(
+                                                title: const Text(
                                                     'Booking Confirmation'),
-                                                content: Text(
+                                                content: const Text(
                                                     'Your booking has been confirmed.'),
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
-                                                    child: Text('OK'),
+                                                    child: const Text('OK'),
                                                   ),
                                                 ],
                                               );
                                             },
                                           );
                                         },
-                                        child: Text('Confirm Booking'),
+                                        child: const Text('Confirm Booking'),
                                       ),
                                     ],
                                   );
                                 },
                               );
                             },
-                            child: Text('Confirm'),
+                            child: const Text('Confirm'),
                           ),
                         ],
                       );

@@ -15,6 +15,7 @@ Destination _$DestinationFromJson(Map<String, dynamic> json) => Destination(
       admissionFee: (json['admissionFee'] as num).toDouble(),
       contacts: json['contacts'] as String,
       urlImage: json['urlImage'] as String,
+      fee: json['fee'] as int,
     );
 
 Map<String, dynamic> _$DestinationToJson(Destination instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$DestinationToJson(Destination instance) =>
       'admissionFee': instance.admissionFee,
       'contacts': instance.contacts,
       'urlImage': instance.urlImage,
+      'fee': instance.fee,
     };
