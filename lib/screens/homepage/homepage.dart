@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:triptrak/models/attractions.dart';
+import 'package:triptrak/repo/firebase_repo.dart';
 import 'package:triptrak/repo/firestore_repo.dart';
 import 'package:triptrak/screens/admin/adminpanel.dart';
 
@@ -209,7 +210,7 @@ class TopLeading extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             Text(
-              'mutuku',
+              extractNameFromEmail(FirebaseRepo().currentUser!.email!),
               style: Theme.of(context).textTheme.labelMedium,
               //
             ),

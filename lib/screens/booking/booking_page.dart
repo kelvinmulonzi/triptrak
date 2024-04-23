@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pdfWidgets;
-
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import '../../models/attractions.dart';
 import '../../models/booking.dart';
 import '../../repo/firestore_repo.dart';
@@ -51,6 +52,33 @@ class BookingScreenState extends State<BookingScreen> {
       );
       return;
     }
+    void sendEmailConfirmation() async {
+      String username = 'kelvinmutuku044@gmail.com'; // Your email
+      String password = 'Mulonzi00'; // Your email password
+
+      // This is the SMTP server, it depends on the email provider
+      // For Gmail, it's 'smtp.gmail.com'
+      final smtpServer = gmail(username, password);
+
+      // Create our email message.
+      final message = Message()
+        ..from = Address(username, 'Travel Agency')
+        ..recipients.add('kelvinmutuku044@gmail.com') // recipient email
+        ..subject = 'Booking Confirmation :: 😀 :: ${DateTime.now()}'
+        ..text = 'This is the plain text.\nThis is line 2 of the text part.'
+        ..html =
+            "<h1>Booking Confirmation</h1>\n<p>Your booking was successful !</p>";
+
+      try {
+        final sendReport = await send(message, smtpServer);
+        print('Message sent: ' + sendReport.toString());
+      } on MailerException catch (e) {
+        print('Message not sent. \n' + e.toString());
+        for (var p in e.problems) {
+          print('Problem: ${p.code}: ${p.msg}');
+        }
+      }
+    }
 
     // Create Booking object
     Booking booking = Booking(
@@ -86,6 +114,7 @@ class BookingScreenState extends State<BookingScreen> {
           );
         },
       );
+      sendEmailConfirmation(); // Send email confirmation
     });
 
     final pdf = pdfWidgets.Document();
